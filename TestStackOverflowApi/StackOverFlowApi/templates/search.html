@@ -1,0 +1,113 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Stack Search</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	  <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    
+    </style>
+</head>
+<body>
+
+  <!-- Filters -->
+
+  <div class="ml-3 mt-3 mr-3 mb-4 border border-success p-3" >
+
+      <form class="needs-validation" method="GET" action="">
+            {{myFilter.form}}
+          <button class="btn btn-info" type="submit">Search</button>
+      </form>
+  </div>
+    
+<!-- Questions -->
+
+    {% for q in ques %}
+    <div class="card mt-3 ml-3 mr-3">
+        <div class="card-header">
+         Question
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Q: {{q.questions}}</h5>
+          <p class="card-text">Tags: {{q.tags}}</p>
+          <p class="card-text">Votes: {{q.vote_count}}</p>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- Pagination -->
+
+      <nav aria-label="..." class="mt-3 nav justify-content-center">
+        <ul class="pagination">
+            {% if ques.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{data.previous_page_number}}" tabindex="-1">Previous</a>
+              </li>
+            {% endif %}
+             {% for i in ques.paginator.page_range %}
+               {% if data.number == i %}
+                  <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+              {% else %}
+                   <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+              {% endif %}
+            {% endfor %}
+            {% if ques.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{data.next_page_number}}">Next</a>
+              </li>
+            {% endif %}
+        </ul>
+      </nav>
+
+
+    <!-- <script type="text/javascript">
+
+  buidQuestions()
+
+    function buidQuestions(){
+
+        
+
+        var url = 'http://127.0.0.1:8000/stack/questions/'
+
+        fetch(url)
+
+        .then((resp) => resp.json())
+
+        .then(function(data){
+
+          console.log('Data',data)
+          var list = data
+
+          for(var i in list){
+
+            var item = 
+            <div class="card mt-3 ml-3 mr-3">
+            <div class="card-header">
+            Question
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Q:list[i].questions</h5>
+              <p class="card-text">Tags:</p>
+              <p class="card-text">Votes:</p>
+            </div>
+            </div>
+            
+        
+          
+          document.getElementById('ques').innerHTML += item
+
+
+          } 
+
+        })
+      }
+
+    </script> -->
+</body>
+</html>
